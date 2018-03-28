@@ -109,12 +109,16 @@ def _sgn(n):
 
 def walk(offset):
     x, y = offset
-    if x < 0:  # do w first, then up/down, then e, to avoid tripping over ,./;
-        return 'w' + walk((x + 1, y))
+    if x > 0 and y < 0:
+        return 'ne' + walk((x - 1, y + 1))
+    elif x < 0 and y > 0:
+        return 'sw' + walk((x + 1, y - 1))
     elif y > 0:
         return 'se' + walk((x, y - 1))
     elif y < 0:
         return 'nw' + walk((x, y + 1))
+    elif x < 0:
+        return 'w' + walk((x + 1, y))
     elif x > 0:
         return 'e' + walk((x - 1, y))
     else:  # x == 0 and y == 0
