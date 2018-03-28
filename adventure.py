@@ -13,9 +13,9 @@
 #
 # From here on, we ignore ne/sw, and draw on a square grid, to simplify.  We
 # label the grid as follows (_ is unused keys):
-#     [ R1 ] [ T1 ] [ S1 ] [ W1 ] [ZZZ1] [ E1 ] [ P1 ] [ N1 ] [____] [____]
+#     [____] [ R1 ] [ T1 ] [ S1 ] [ W1 ] [ZZZ1] [ E1 ] [ P1 ] [ N1 ] [____]
 #     [ R2 ] [ T2 ] [ S2 ] [ W2 ] [ZZZ2] [ E2 ] [ P2 ] [ N2 ] [____]
-#     [____] [____] [____] [____] [CODA] [____] [____]
+#     [____] [____] [____] [CODA] [____] [____] [____]
 # This layout consists of two rows, in parallel structure with a "ZZZ" key and
 # a key for each command we will need, plus the CODA key.
 #
