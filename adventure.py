@@ -13,8 +13,8 @@
 #
 # From here on, we ignore ne/sw, and draw on a square grid, to simplify.  We
 # label the grid as follows (_ is unused keys):
-#     [ R1 ] [ S1 ] [ T1 ] [ W1 ] [ZZZ1] [ E1 ] [ P1 ] [ N1 ] [____] [____]
-#     [ R2 ] [ S2 ] [ T2 ] [ W2 ] [ZZZ2] [ E2 ] [ P2 ] [ N2 ] [____]
+#     [ R1 ] [ T1 ] [ S1 ] [ W1 ] [ZZZ1] [ E1 ] [ P1 ] [ N1 ] [____] [____]
+#     [ R2 ] [ T2 ] [ S2 ] [ W2 ] [ZZZ2] [ E2 ] [ P2 ] [ N2 ] [____]
 #     [____] [____] [____] [____] [CODA] [____] [____]
 # This layout consists of two rows, in parallel structure with a "ZZZ" key and
 # a key for each command we will need, plus the CODA key.
@@ -154,20 +154,20 @@ def press(keys, start='h', end=None):
     return ret
 
 
-MAPPING = ['rstw epn']
-OFFSET = (0, 1)
-CODA_OFFSET = (0, 1)
+MAPPING = [' rstwZepn']
+OFFSET = (-1, 1)
+CODA_OFFSET = (-1, 1)
 ZZZ1_KEY = next(k
                 for ms, ks in zip(MAPPING, QWERTY)
                 for m, k in zip(ms, ks)
-                if m == ' ')
+                if m == 'Z')
 ZZZ2_KEY = KEY_AT[add(OFFSET, LOC_OF[ZZZ1_KEY])]
 CODA_KEY = KEY_AT[add(CODA_OFFSET, LOC_OF[ZZZ2_KEY])]
 MAPPING_LOC_OF = {
     k: sub((x, y), LOC_OF[ZZZ1_KEY])
     for y, row in enumerate(MAPPING)
     for x, k in enumerate(row)
-    if k != ' '}
+    if k not in ' Z'}
 
 CODA = ('\nr' + walk(OFFSET)
         + 't\n' + walk(neg(OFFSET))
@@ -177,7 +177,7 @@ ROW1 = {
     KEY_AT[(x, y)]: press(k, KEY_AT[(x, y)])
     for y, row in enumerate(MAPPING)
     for x, k in enumerate(row)
-    if k != ' '}
+    if k not in ' Z'}
 ROW2 = {
     KEY_AT[add((x, y), OFFSET)]: press(
         (walk(sub((x, y), LOC_OF[ZZZ1_KEY]))
@@ -185,7 +185,7 @@ ROW2 = {
         KEY_AT[add((x, y), OFFSET)])
     for y, row in enumerate(MAPPING)
     for x, k in enumerate(row)
-    if k != ' '}
+    if k not in ' Z'}
 EXTRA = {
     ZZZ2_KEY: walk(neg(OFFSET)),                     # ZZZ2
     CODA_KEY: press(CODA, CODA_KEY, end=CODA[-1]),   # CODA
