@@ -13,9 +13,9 @@
 #
 # From here on, we ignore ne/sw, and draw on a square grid, to simplify.  We
 # label the grid as follows (_ is unused keys):
-#     [ R1 ] [ N1 ] [____] [ R2 ] [ N2 ] [____] [____] [____] [____] [____]
+#     [ R1 ] [ T1 ] [ P1 ] [ R2 ] [ T2 ] [ P1 ] [____] [____] [____] [____]
 #     [ W1 ] [ZZZ1] [ E1 ] [ W2 ] [ZZZ2] [ E2 ] [CODA] [____] [____]
-#     [ T1 ] [ S1 ] [ P1 ] [ T2 ] [ S2 ] [ P2 ] [____]
+#     [____] [ S1 ] [ N1 ] [____] [ S2 ] [ N2 ] [____]
 # This layout consists of two sub-keyboards, in parallel structure with a "ZZZ"
 # key and a key for each command we will need, plus the CODA key.
 #
@@ -142,7 +142,7 @@ def press(keys, start='h', end=None):
     return ret
 
 
-MAPPING = ['rn ', 'w e', 'tsp']
+MAPPING = ['rtp', 'w e', ' sn']
 MAPPING_LOC_OF = {
     k: (x - 1, y - 1)
     for y, row in enumerate(MAPPING)
