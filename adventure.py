@@ -13,7 +13,7 @@
 #
 # From here on, we ignore ne/sw, and draw on a square grid, to simplify.  We
 # label the grid as follows (_ is unused keys):
-#     [ R1 ] [ N1 ] [ V1 ] [ R2 ] [ N2 ] [ V2 ] [____] [____] [____] [____]
+#     [ R1 ] [ N1 ] [____] [ R2 ] [ N2 ] [____] [____] [____] [____] [____]
 #     [ W1 ] [ZZZ1] [ E1 ] [ W2 ] [ZZZ2] [ E2 ] [CODA] [____] [____]
 #     [ T1 ] [ S1 ] [ P1 ] [ T2 ] [ S2 ] [ P2 ] [____]
 # This layout consists of two sub-keyboards, in parallel structure with a "ZZZ"
@@ -42,7 +42,6 @@
 # short and concrete sequences.
 #
 # Now consider the string S consisting of the characters needed to:
-#   - type 'v' (this is just for debuggability)
 #   - write everything we need on all the boards except ZZZ1
 #   - walk back to ZZZ1
 #
@@ -74,7 +73,6 @@
 #
 # So here's our program:
 #   Let S be the characters needed to:
-#     - type 'v'
 #     - write everything we need on all the boards except ZZZ1
 #       (but including ZZZ2 and CODA)
 #     - walk back to ZZZ1
@@ -142,7 +140,7 @@ def press(keys, start='h', end=None):
     return ret
 
 
-MAPPING = ['rnv', 'w e', 'tsp']
+MAPPING = ['rn ', 'w e', 'tsp']
 MAPPING_LOC_OF = {
     k: (x - 1, y - 1)
     for y, row in enumerate(MAPPING)
@@ -209,7 +207,7 @@ def press_kbd1(keys):
     return ret
 
 
-S = 'v' + write_all(BOARDS) + ' t ' + 'e' * OFFSET + 'r'
+S = write_all(BOARDS) + ' t ' + 'e' * OFFSET + 'r'
 PROG = S + ' ' + press_kbd1(S) + CODA
 
 print PROG
