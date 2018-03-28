@@ -87,30 +87,7 @@
 #     - the code needed to type S using the first keyboard, starting at ZZZ1
 #     - CODA
 #
-#
-# Here it is, spelled out:
-#    vwwwwwnw t eeepwww
-#    se t nwepwse
-#    se t nwnweeeepwwwwsese
-#    nwnwe t seseeeeepwwwwnwnw
-#    sese t nwpse
-#    nwnwe t seseepwnwnw
-#    se t nwpse
-#    se t nwnweeeeeeepwwwwwwwsese
-#    nwnwe t wwpseseeeeepwwwwnwnwpeepwwsepnweppe
-#    se t wwnwpeepwpsee
-#    se t wwnwnwpsepnwepepseseeepwwwwnwnwpepsesee
-#    nwnwe t seseepwwwwnwnwpeepwwsepnwepee
-#    se t www
-#    se t wwwnwpnwepepseseeepwwwwnwnwpseseeee
-#    nwnwe t sesepwwwwnwnwpepepwwpsepnwepeee
-#    se t wwwnwpepwwpseeeee
-#    se t wwwwnwpnweppepwwpseseeeeepwwwwnwnwpseseeeee
-#    nwe t wwwnwpwpppeepwwwpppeepwppep
-#    wwwww t eeer nwerwsewrewrewrewrewrenwrsewrewsernweerwerwerwseerwnwwrewrewresernwerwwsernwenwrsewreerwseerwnwwresernwerwsernwerwwsernwenwrsewrenwrsewreerwerwerwerwseerwnwwrewrewrewresernwerwsernwerwnwrsewrenwrsewreerwwsernwesernwerwsernwerwerwerwerwerwseerwnwwrewrewrewrenwrsewrenwrsewresernwerwsernwerwwsernwenwrsewreseerwnwsernwerwnwrsewrenwrsewreerwwsernwesernwerwsernwerwerwseerwnwwrenwrsewrenwrsewresernwerwwsernwenwrsewreseerwnwsernwerwsernwerwwsernwenwrsewrenwrsewreerwerwerwerwerwerwerwseerwnwwrewrewrewrewrewrewresernwerwsernwerwnwrsewrenwrsewreerwwsernwewrewreseerwnwsernwerwsernwerwerwerwerwerwseerwnwwrewrewrewrenwrsewrenwrsewreseerwnwerwerwseerwnwwrewresernwerwseerwnwnwrsewreerwseerwnwseerwnwerwsernwerwwsernwewrewrenwrsewreseerwnwerwerwseerwnwwreseerwnwsernwerwerwsernwerwwsernwewrewrenwrsewrenwrsewreseerwnwsernwerwseerwnwnwrsewreerwseerwnwerwseerwnwsernwerwsernwerwerwerwseerwnwwrewrewrewrenwrsewrenwrsewreseerwnwerwseerwnwsernwerwsernwerwerwnwrsewrenwrsewreerwwsernwesernwerwsernwerwerwseerwnwwrewrewrewrenwrsewrenwrsewreseerwnwerwerwseerwnwwrewresernwerwseerwnwnwrsewreerwseerwnwerwerwsernwerwwsernwewrewrewresernwerwwsernwewrewrewrenwrsewreseerwnwnwrsewreerwseerwnwerwseerwnwsernwerwsernwerwerwerwseerwnwwrewrewrewrenwrsewrenwrsewreseerwnwsernwerwsernwerwerwerwerwnwrsewrenwrsewreerwwsernwesernwerwsernwerwseerwnwwrewrewrewrenwrsewrenwrsewreseerwnwerwseerwnwerwseerwnwwrewreseerwnwsernwerwseerwnwnwrsewreerwseerwnwerwerwerwsernwerwwsernwewrewrewrenwrsewreseerwnwerwseerwnwwrewreseerwnwsernwerwerwerwerwerwsernwerwwsernwewrewrewrewrenwrsewreseerwnwnwrsewreerwseerwnwseerwnwerwseerwnwwrewreseerwnwsernwerwsernwerwerwerwerwerwseerwnwwrewrewrewrenwrsewrenwrsewreseerwnwsernwerwsernwerwerwerwerwerwnwrsewreerwwsernwewrewrewrenwrsewreseerwnwwreseerwnwseerwnwseerwnwerwerwseerwnwwrewrewreseerwnwseerwnwseerwnwerwerwseerwnwwreseerwnwseerwnwerwseerwnwwrewrewrewrewrewsernweerwerwerwwnwrsee
-#    reeet
-#    wwwreer
-# (No, this program is not also a quine.)
+# See program.txt for all of that spelled out.
 
 
 # Keyboard
