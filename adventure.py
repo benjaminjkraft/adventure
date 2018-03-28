@@ -13,30 +13,30 @@
 #
 # From here on, we ignore ne/sw, and draw on a square grid, to simplify.  We
 # label the grid as follows (_ is unused keys):
-#     [ R1 ] [ T1 ] [ P1 ] [ R2 ] [ T2 ] [ P1 ] [____] [____] [____] [____]
-#     [ W1 ] [ZZZ1] [ E1 ] [ W2 ] [ZZZ2] [ E2 ] [CODA] [____] [____]
-#     [____] [ S1 ] [ N1 ] [____] [ S2 ] [ N2 ] [____]
-# This layout consists of two sub-keyboards, in parallel structure with a "ZZZ"
-# key and a key for each command we will need, plus the CODA key.
+#     [ R1 ] [ T1 ] [ P1 ] [ W1 ] [ZZZ1] [ E1 ] [ S1 ] [ N1 ] [____] [____]
+#     [ R2 ] [ T2 ] [ P2 ] [ W2 ] [ZZZ2] [ E2 ] [ S2 ] [ N2 ] [____]
+#     [____] [____] [____] [____] [CODA] [____] [____]
+# This layout consists of two rows, in parallel structure with a "ZZZ" key and
+# a key for each command we will need, plus the CODA key.
 #
-# In the first keyboard, we write on R1's chalkboard the instructions to start
-# at R1, walk to the R key (which happens to be R2), press it ('p'), and walk
-# back to R2, and so on for each key.  That is, each chalkboard has
-# instructions to type the corresponding key and return to that chalkboard.  So
-# if we're at ZZZ1, we can type 'r' by walking to R1, reading it ('r'), and
-# then walking back.
+# In the first row, we write on R1's chalkboard the instructions to start at
+# R1, walk to the R key (which happens to be R2), press it ('p'), and walk back
+# to R2, and so on for each key.  That is, each chalkboard has instructions to
+# type the corresponding key and return to that chalkboard.  So if we're at
+# ZZZ1, we can type 'r' by walking to R1, reading it ('r'), and then walking
+# back.
 #
-# In the second keyboard, we write on R2's chalkboard the instructions to type
-# the following sequence: the keys needed to get from ZZZ1 to R1, then read it
+# In the second row, we write on R2's chalkboard the instructions to type the
+# following sequence: the keys needed to get from ZZZ1 to R1, then read it
 # ('r'), then those to return to ZZZ1.  (Again, we return to R2 after typing.)
 # That is, each chalkboard has the instructions necessary to type the sequence
 # of keys needed to type the key corresponding to the chalkboard, starting at
-# ZZZ1 and using the first keyboard's chalkboards to do the typing.
+# ZZZ1 and using the first row's chalkboards to do the typing.
 #
 # To put it another way, there exists a sequence of keys (namely walk to the
-# right spot on the first keyboard, 'r', then walk back) which if executed at
-# ZZZ1 will type a given key, and if executed at ZZZ2 will type itself.  This
-# is the core of our quine.
+# right spot on the first row, 'r', then walk back) which if executed at ZZZ1
+# will type a given key, and if executed at ZZZ2 will type itself.  This is the
+# core of our quine.
 #
 # We'll talk about exactly what we write on ZZZ2 and CODA later, but they'll be
 # short and concrete sequences.
@@ -46,9 +46,9 @@
 #   - walk back to ZZZ1
 #
 # Let's first run S -- setting up everything else.  Then, write on ZZZ1's board
-# the characters needed to type out S using the first keyboard.  Now, run that
-# keyboard -- this types out S.  Finally, run it again, this time starting from
-# ZZZ2 -- this types out the sequence on ZZZ1's board itself.
+# the characters needed to type out S using the first row.  Now, run that board
+# -- this types out S.  Finally, run it again, this time starting from ZZZ2 --
+# this types out the sequence on ZZZ1's board itself.
 #
 # There are a couple more bits we need to consider.  First, there's a 't'
 # needed after all the other setup to start writing on ZZZ1's board -- so let's
@@ -82,7 +82,7 @@
 #     - 'wwwreer'
 # Our program is:
 #     - S
-#     - the code needed to type S using the first keyboard, starting at ZZZ1
+#     - the code needed to type S using the first row, starting at ZZZ1
 #     - CODA
 #
 # See program.txt for all of that spelled out.
@@ -121,8 +121,16 @@ def walk(offset):
         return ''
 
 
+def add(offset1, offset2):
+    return (offset1[0] + offset2[0], offset1[1] + offset2[1])
+
+
 def sub(offset1, offset2):
     return (offset1[0] - offset2[0], offset1[1] - offset2[1])
+
+
+def neg(offset):
+    return sub((0, 0), offset)
 
 
 def press(keys, start='h', end=None):
@@ -142,37 +150,43 @@ def press(keys, start='h', end=None):
     return ret
 
 
-MAPPING = ['rtp', 'w e', ' sn']
+ZZZ1_KEY = 't'
+ZZZ2_KEY = 'g'
+CODA_KEY = 'b'
+MAPPING = ['rtpw esn']
 MAPPING_LOC_OF = {
-    k: (x - 1, y - 1)
+    k: (x - 4, y)
     for y, row in enumerate(MAPPING)
     for x, k in enumerate(row)
     if k != ' '}
 
-OFFSET = len(MAPPING[0])
-CODA = '\nr' + 'e' * OFFSET + 't\n' + 'w' * OFFSET + 'reer'
+OFFSET = (0, 1)
+CODA_OFFSET = (0, 1)
+CODA = ('\nr' + walk(OFFSET)
+        + 't\n' + walk(neg(OFFSET))
+        + 'r' + walk(CODA_OFFSET) + 'r')
 
-KBD1 = {
+ROW1 = {
     KEY_AT[(x, y)]: press(k, KEY_AT[(x, y)])
     for y, row in enumerate(MAPPING)
     for x, k in enumerate(row)
     if k != ' '}
-KBD2 = {
-    KEY_AT[(x + OFFSET, y)]: press(
-        walk((x - 1, y - 1)) + 'r' + walk((1 - x, 1 - y)),
-        KEY_AT[(x + OFFSET, y)])
+ROW2 = {
+    KEY_AT[add((x, y), OFFSET)]: press(
+        walk((x - 4, y)) + 'r' + walk((4 - x, -y)),
+        KEY_AT[add((x, y), OFFSET)])
     for y, row in enumerate(MAPPING)
     for x, k in enumerate(row)
     if k != ' '}
 EXTRA = {
-    'g': 'w' * OFFSET,                     # ZZZ2
-    'j': press(CODA, 'j', end=CODA[-1]),   # CODA
+    ZZZ2_KEY: walk(neg(OFFSET)),                     # ZZZ2
+    CODA_KEY: press(CODA, CODA_KEY, end=CODA[-1]),   # CODA
 }
 
 # What we want to put on each board, except ZZZ1
 BOARDS = {}
-BOARDS.update(KBD1)
-BOARDS.update(KBD2)
+BOARDS.update(ROW1)
+BOARDS.update(ROW2)
 BOARDS.update(EXTRA)
 
 
@@ -183,7 +197,7 @@ def write(text, at, start='h'):
     return walk(sub(at, start)) + ' t ' + text + '\n'
 
 
-def write_all(boards, start='h', end='s'):
+def write_all(boards, start='h', end=ZZZ1_KEY):
     """Write text on a bunch of boards the boards."""
     end = end or start
     prev = start
@@ -195,8 +209,8 @@ def write_all(boards, start='h', end='s'):
     return ret
 
 
-def press_kbd1(keys):
-    """Starting at ZZZ1, press these keys via the first keyboard."""
+def press_row1(keys):
+    """Starting at ZZZ1, press these keys via the first row."""
     start = (0, 0)
     ret = ''
     for key in keys:
@@ -209,8 +223,8 @@ def press_kbd1(keys):
     return ret
 
 
-S = write_all(BOARDS) + ' t ' + 'e' * OFFSET + 'r'
-PROG = S + ' ' + press_kbd1(S) + CODA
+S = write_all(BOARDS) + ' t ' + walk(OFFSET) + 'r'
+PROG = S + ' ' + press_row1(S) + CODA
 
 print PROG
 print >>sys.stderr, "Lines:", PROG.count('\n') + 1
