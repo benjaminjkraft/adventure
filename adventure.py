@@ -87,6 +87,8 @@
 #
 # See program.txt for all of that spelled out.
 
+import sys
+
 
 # Keyboard
 QWERTY = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm']
@@ -211,3 +213,5 @@ S = write_all(BOARDS) + ' t ' + 'e' * OFFSET + 'r'
 PROG = S + ' ' + press_kbd1(S) + CODA
 
 print PROG
+print >>sys.stderr, "Lines:", PROG.count('\n') + 1
+print >>sys.stderr, "Commands:", len(PROG.replace(' ', '').replace('\n', ''))
